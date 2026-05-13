@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Finca Wine Club — Join the Society</title>
+  <meta name="description" content="Join the Finca Wine Club. Two thoughtfully curated clubs from $75/month — single-vineyard wines of place, member-only events, complimentary flights, and first access to allocated bottles. North Park, San Diego.">
+  <meta property="og:title" content="The Finca Wine Club — Wines of Place. People of Place.">
+  <meta property="og:description" content="Two clubs, one community. Curated by the Finca team in North Park, San Diego.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://finca.vinesos.com/club/">
+  <link rel="icon" href="https://finca.wine/wp-content/uploads/2023/09/finca_logo02.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Gothic';
+      src: url('https://finca.wine/wp-content/uploads/2024/03/Gothic-BoldExt.otf') format('opentype');
+      font-weight: bold;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #e5b45a;
+      --gold-bright: #f0c878;
+      --gold-deep: #b88e3a;
+      --burgundy: #5a1f1c;
+      --burgundy-deep: #3a0f0c;
+      --black: #120a0c;
+      --ink-deep: #0a0506;
+      --cream: #f0e6d6;
+      --warm: #1f1418;
+      --muted: #a89a88;
+      --soft: #c9bda0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--black);
+      color: var(--cream);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .gothic { font-family: 'Gothic', Impact, sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    /* ───────── ANIMATED GRAIN OVERLAY ───────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      animation: grain 1.5s steps(4) infinite;
+    }
+    @keyframes grain {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-3%, 2%); }
+      50% { transform: translate(2%, -2%); }
+      75% { transform: translate(-1%, 1%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* ───────── TOP NAV ───────── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 28px;
+      background: rgba(10, 5, 6, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(229, 180, 90, 0.15);
+    }
+    .topbar-left { display: flex; align-items: center; gap: 18px; }
+    .topbar img { height: 26px; }
+    .topbar-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      opacity: 0.9;
+    }
+    @media (max-width: 600px) { .topbar-tag { display: none; } }
+    .topbar-signin {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      padding: 9px 22px;
+      border: 1px solid rgba(229, 180, 90, 0.5);
+      transition: all 0.3s ease;
+    }
+    .topbar-signin:hover {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+
+    /* ─────────────────────────────────────────
+       HERO — INVITATION
+    ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      padding: 80px 24px 60px;
+    }
+
+    .hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      transform: scale(1.05);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse at center, rgba(10,5,6,0.45) 0%, rgba(10,5,6,0.92) 100%),
+        linear-gradient(to bottom, rgba(10,5,6,0.4), rgba(10,5,6,0.92));
+    }
+
+    /* Floating wine glass animation */
+    .floating-glass {
+      position: absolute;
+      width: 60px; height: 100px;
+      z-index: 2;
+      opacity: 0.25;
+      animation: floatGlass 14s ease-in-out infinite;
+    }
+    .floating-glass.g1 { top: 18%; left: 12%; animation-delay: 0s; }
+    .floating-glass.g2 { top: 65%; right: 10%; animation-delay: -5s; transform: scale(0.7); }
+    .floating-glass.g3 { top: 30%; right: 16%; animation-delay: -9s; transform: scale(0.5); }
+    @keyframes floatGlass {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-22px) rotate(3deg); }
+    }
+    .floating-glass svg { width: 100%; height: 100%; }
+
+    .hero-content {
+      position: relative; z-index: 3;
+      text-align: center;
+      max-width: 760px;
+      animation: fadeUp 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 50px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .hero-eyebrow::after { background: linear-gradient(to left, transparent, var(--gold)); }
+
+    .hero-title {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: clamp(56px, 11vw, 130px);
+      line-height: 0.92;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 18px;
+    }
+    .hero-title em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      display: block;
+      font-size: 0.7em;
+      margin-top: 6px;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.4vw, 24px);
+      color: var(--cream);
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.5;
+      opacity: 0.92;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 42px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-gold {
+      color: var(--black);
+      background: linear-gradient(135deg, #f0c878 0%, #e5b45a 50%, #b88e3a 100%);
+      border: 1px solid var(--gold-deep);
+      box-shadow: 0 6px 24px rgba(229,180,90,0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(229,180,90,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+      letter-spacing: 4px;
+    }
+
+    .btn-ghost {
+      color: var(--gold);
+      background: transparent;
+      border: 1px solid var(--gold);
+    }
+    .btn-ghost:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-3px);
+      letter-spacing: 4px;
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      text-align: center;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .scroll-hint-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .scroll-hint-line {
+      width: 1px; height: 32px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      margin: 0 auto;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 1; transform: translateX(-50%) translateY(4px); }
+    }
+
+    /* ─────────────────────────────────────────
+       PHILOSOPHY STRIP — moving manifesto
+    ───────────────────────────────────────── */
+    .manifesto {
+      background: var(--ink-deep);
+      padding: 24px 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(229, 180, 90, 0.15);
+      border-bottom: 1px solid rgba(229, 180, 90, 0.15);
+    }
+    .manifesto-track {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scrollLeft 38s linear infinite;
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: 18px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .manifesto-track span { display: inline-block; margin: 0 40px; }
+    .manifesto-track .dot { color: var(--gold-deep); }
+    @keyframes scrollLeft {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─────────────────────────────────────────
+       INTRO — WHY JOIN
+    ───────────────────────────────────────── */
+    .intro {
+      padding: 130px 24px 90px;
+      text-align: center;
+      position: relative;
+    }
+
+    .intro-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .intro-title {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: clamp(38px, 5.5vw, 60px);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 28px;
+      line-height: 1.05;
+    }
+    .intro-title em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .intro-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(19px, 2.4vw, 24px);
+      color: var(--cream);
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.55;
+      opacity: 0.92;
+    }
+
+    .intro-divider {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px;
+      margin-top: 42px;
+    }
+    .intro-divider-line { width: 70px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+    .intro-divider-line:last-child { background: linear-gradient(to left, transparent, var(--gold)); }
+    .intro-divider-mark { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+    /* ─────────────────────────────────────────
+       MEMBERSHIP CARDS — The Centerpiece
+    ───────────────────────────────────────── */
+    .clubs {
+      padding: 30px 24px 130px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .clubs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      perspective: 1500px;
+    }
+
+    @media (max-width: 900px) {
+      .clubs-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    .club {
+      position: relative;
+      background: linear-gradient(160deg, #1f1418 0%, #14080b 100%);
+      border: 1px solid rgba(229, 180, 90, 0.25);
+      padding: 50px 44px 44px;
+      transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform-style: preserve-3d;
+      overflow: hidden;
+    }
+    .club::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(229,180,90,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 100%, rgba(90,31,28,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .club:hover {
+      transform: translateY(-10px) rotateX(2deg);
+      border-color: var(--gold);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(229,180,90,0.15);
+    }
+
+    .club-corner {
+      position: absolute;
+      width: 32px; height: 32px;
+      border: 1px solid var(--gold);
+      opacity: 0.7;
+    }
+    .club-corner.tl { top: 14px; left: 14px; border-right: none; border-bottom: none; }
+    .club-corner.tr { top: 14px; right: 14px; border-left: none; border-bottom: none; }
+    .club-corner.bl { bottom: 14px; left: 14px; border-right: none; border-top: none; }
+    .club-corner.br { bottom: 14px; right: 14px; border-left: none; border-top: none; }
+
+    .club-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .club-stamp {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .club-name {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: clamp(28px, 3.5vw, 38px);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .club-name em {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: 0.55em;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    .club-flourish {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px;
+      margin: 16px 0 4px;
+    }
+    .club-flourish-line { width: 36px; height: 1px; background: var(--gold-deep); }
+    .club-flourish-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+
+    .club-pricing {
+      display: flex; align-items: baseline; justify-content: center;
+      gap: 12px;
+      margin: 24px 0 6px;
+    }
+    .club-price {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: 56px;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: 2px;
+    }
+    .club-price-period {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .club-bottles {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--soft);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .club-bottles strong { color: var(--gold); font-weight: 600; }
+
+    .club-pitch {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.55;
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 0 8px;
+    }
+
+    .club-divider {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px;
+      margin: 32px 0 24px;
+    }
+    .club-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(229,180,90,0.4), transparent);
+    }
+    .club-divider-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .club-perks {
+      list-style: none;
+      margin-bottom: 36px;
+    }
+    .club-perks li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--cream);
+      padding: 9px 0;
+      line-height: 1.4;
+    }
+    .club-perks li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px; height: 6px;
+      margin-top: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .club-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold), var(--gold-deep));
+      color: var(--black);
+      border: 1px solid var(--gold-deep);
+      box-shadow: 0 4px 20px rgba(229,180,90,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+    }
+    .club-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(229,180,90,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+      letter-spacing: 4px;
+    }
+
+    /* Featured stamp on Wines of Place */
+    .club--featured {
+      position: relative;
+    }
+    .club--featured .ribbon {
+      position: absolute;
+      top: 20px; right: -36px;
+      transform: rotate(45deg);
+      background: var(--burgundy);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 50px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      z-index: 5;
+    }
+
+    /* ─────────────────────────────────────────
+       PERKS LEDGER — animated reveal
+    ───────────────────────────────────────── */
+    .perks-section {
+      background: var(--ink-deep);
+      padding: 130px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .perks-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(229,180,90,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(90,31,28,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .perks-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .perks-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+    .perks-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .perks-title {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: clamp(34px, 5vw, 52px);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cream);
+      line-height: 1.05;
+    }
+    .perks-title em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .perks-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--soft);
+      max-width: 580px;
+      margin: 18px auto 0;
+    }
+
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid rgba(229,180,90,0.2);
+    }
+    @media (max-width: 720px) { .perks-grid { grid-template-columns: 1fr; } }
+
+    .perk {
+      padding: 38px 36px;
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+      border-right: 1px solid rgba(229,180,90,0.12);
+      border-bottom: 1px solid rgba(229,180,90,0.12);
+      transition: background 0.3s ease;
+      position: relative;
+    }
+    .perk:hover { background: rgba(229,180,90,0.04); }
+    .perk:nth-child(2n) { border-right: none; }
+    .perk:nth-last-child(-n+2) { border-bottom: none; }
+    @media (max-width: 720px) {
+      .perk { border-right: none; }
+      .perk:nth-last-child(-n+2) { border-bottom: 1px solid rgba(229,180,90,0.12); }
+      .perk:last-child { border-bottom: none; }
+    }
+
+    .perk-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 36px;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      opacity: 0.7;
+      width: 44px;
+    }
+
+    .perk-body { flex: 1; }
+
+    .perk-title {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .perk-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--soft);
+      line-height: 1.55;
+    }
+
+    /* ─────────────────────────────────────────
+       SHOWCASE SECTION — image with overlay
+    ───────────────────────────────────────── */
+    .showcase {
+      position: relative;
+      min-height: 70vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      padding: 100px 24px;
+    }
+    .showcase-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      filter: brightness(0.4) saturate(1.1);
+    }
+    .showcase::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(10,5,6,0.8) 100%);
+      z-index: 1;
+    }
+    .showcase-inner {
+      position: relative; z-index: 2;
+      text-align: center;
+      max-width: 720px;
+    }
+    .showcase-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(26px, 4vw, 40px);
+      color: var(--cream);
+      line-height: 1.4;
+      margin-bottom: 22px;
+    }
+    .showcase-quote::before, .showcase-quote::after {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .showcase-quote::before { content: '"'; }
+    .showcase-quote::after { content: '"'; }
+    .showcase-attr {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ─────────────────────────────────────────
+       COMPARE — at a glance
+    ───────────────────────────────────────── */
+    .compare {
+      padding: 130px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .compare-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .compare-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .compare-title {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: clamp(32px, 4.5vw, 48px);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .compare-title em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid rgba(229,180,90,0.2);
+    }
+    .compare-table th,
+    .compare-table td {
+      padding: 22px 24px;
+      text-align: left;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: var(--cream);
+      border-bottom: 1px solid rgba(229,180,90,0.1);
+    }
+    .compare-table th {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(229,180,90,0.06);
+      vertical-align: middle;
+    }
+    .compare-table td:first-child {
+      font-style: italic;
+      color: var(--soft);
+      width: 40%;
+    }
+    .compare-table td:not(:first-child) {
+      text-align: center;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .check {
+      color: var(--gold);
+      font-size: 22px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    @media (max-width: 600px) {
+      .compare-table th, .compare-table td { padding: 14px 10px; font-size: 14px; }
+      .compare-table td:first-child { font-size: 13px; }
+    }
+
+    /* ─────────────────────────────────────────
+       GIFT — like a wax seal envelope
+    ───────────────────────────────────────── */
+    .gift {
+      position: relative;
+      padding: 130px 24px;
+      background: linear-gradient(160deg, #1a0e0e 0%, #0a0506 100%);
+      overflow: hidden;
+    }
+
+    .gift::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 70% 30%, rgba(229,180,90,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 30% 70%, rgba(90,31,28,0.15) 0%, transparent 50%);
+    }
+
+    .gift-inner {
+      position: relative;
+      max-width: 920px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 800px) {
+      .gift-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    }
+
+    .gift-content { padding: 20px 0; }
+
+    .gift-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .gift-title {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: clamp(36px, 5.5vw, 56px);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+    .gift-title em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .gift-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--soft);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* Wax seal envelope */
+    .envelope {
+      position: relative;
+      aspect-ratio: 7 / 5;
+      max-width: 360px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #f0e6d6 0%, #d8c8a8 100%);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 6px 12px rgba(0,0,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      transform: rotate(-3deg);
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .envelope:hover { transform: rotate(0) scale(1.04); }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.04), transparent);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    .envelope-seal {
+      position: absolute;
+      bottom: -22px; left: 50%;
+      transform: translateX(-50%);
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at 35% 30%, #8a2422 0%, #5a1f1c 50%, #3a0f0c 100%);
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5), inset 0 -4px 8px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--cream);
+      font-size: 24px;
+    }
+
+    .envelope-text {
+      position: relative;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--burgundy);
+    }
+    .envelope-text-line1 {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .envelope-text-line2 {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-style: normal;
+      font-size: 28px;
+      letter-spacing: 4px;
+      color: var(--burgundy-deep);
+    }
+
+    /* ─────────────────────────────────────────
+       MEMBER SIGN-IN CTA
+    ───────────────────────────────────────── */
+    .signin-cta {
+      padding: 60px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(229, 180, 90, 0.15);
+      border-bottom: 1px solid rgba(229, 180, 90, 0.15);
+    }
+    .signin-cta-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--soft);
+      margin-bottom: 16px;
+    }
+    .signin-cta a {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 4px;
+      transition: all 0.2s;
+    }
+    .signin-cta a:hover { color: var(--gold-bright); }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    .footer {
+      background: var(--ink-deep);
+      padding: 50px 24px 30px;
+      text-align: center;
+    }
+    .footer-mark {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: 16px;
+      letter-spacing: 8px;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .footer-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--soft);
+      margin-bottom: 22px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-meta {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ─────────────────────────────────────────
+       AGE GATE
+    ───────────────────────────────────────── */
+    .age-gate {
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--ink-deep);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      transition: opacity 0.6s ease;
+    }
+    .age-gate.hidden { opacity: 0; pointer-events: none; }
+    .age-gate::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(229,180,90,0.05) 0%, transparent 60%);
+    }
+    .age-box {
+      position: relative;
+      text-align: center;
+      max-width: 460px;
+      padding: 50px 30px;
+    }
+    .age-corner {
+      position: absolute;
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      opacity: 0.6;
+    }
+    .age-corner.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+    .age-corner.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+    .age-corner.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+    .age-corner.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+    .age-logo { height: 30px; margin-bottom: 30px; opacity: 0.95; }
+    .age-title {
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: 26px;
+      letter-spacing: 3px;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    .age-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--soft);
+      margin-bottom: 32px;
+      font-size: 16px;
+    }
+    .age-buttons { display: flex; gap: 14px; justify-content: center; }
+    .age-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .age-btn-yes {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .age-btn-yes:hover {
+      background: var(--gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(229,180,90,0.3);
+    }
+    .age-btn-no {
+      background: transparent;
+      color: var(--soft);
+      border: 1px solid rgba(168,154,136,0.4);
+    }
+    .age-deny { display: none; }
+    .age-deny p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--soft);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .age-deny a { color: var(--gold); text-decoration: none; }
+    body.locked { overflow: hidden; }
+  </style>
+</head>
+<body class="locked">
+
+  <!-- ─── AGE GATE ─── -->
+  <div class="age-gate" id="ageGate">
+    <div class="age-box" id="agePrompt">
+      <span class="age-corner tl"></span>
+      <span class="age-corner tr"></span>
+      <span class="age-corner bl"></span>
+      <span class="age-corner br"></span>
+      <img src="https://finca.wine/wp-content/uploads/2023/09/finca_logo02.png" alt="Finca" class="age-logo">
+      <h2 class="age-title">Are You 21 or Older?</h2>
+      <p class="age-sub">You must be of legal drinking age to enter the Finca Wine Club.</p>
+      <div class="age-buttons">
+        <button class="age-btn age-btn-yes" onclick="ageOk()">Yes, I am</button>
+        <button class="age-btn age-btn-no" onclick="ageNo()">No</button>
+      </div>
+      <div class="age-deny" id="ageDeny" style="margin-top:20px;">
+        <p>Sorry, you must be 21 or older. Visit <a href="https://finca.wine/">finca.wine</a> for more.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TOP BAR ─── -->
+  <nav class="topbar">
+    <div class="topbar-left">
+      <a href="https://finca.wine/"><img src="https://finca.wine/wp-content/uploads/2023/09/finca_logo02.png" alt="Finca North Park"></a>
+      <span class="topbar-tag">— The Wine Club —</span>
+    </div>
+    <a href="https://finca.vinesos.com/user/login/" class="topbar-signin">Member Sign-In</a>
+  </nav>
+
+  <!-- ─────────────────────────────────────────
+       HERO
+  ───────────────────────────────────────── -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="wine-toast.jpg">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+
+    <!-- Floating wine glasses -->
+    <div class="floating-glass g1">
+      <svg viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 10 Q15 40 30 50 Q45 40 45 10 Z" stroke="#e5b45a" stroke-width="1.2" fill="rgba(229,180,90,0.15)"/>
+        <line x1="30" y1="50" x2="30" y2="85" stroke="#e5b45a" stroke-width="1.2"/>
+        <line x1="20" y1="90" x2="40" y2="90" stroke="#e5b45a" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <div class="floating-glass g2">
+      <svg viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 10 Q15 40 30 50 Q45 40 45 10 Z" stroke="#e5b45a" stroke-width="1.2" fill="rgba(229,180,90,0.15)"/>
+        <line x1="30" y1="50" x2="30" y2="85" stroke="#e5b45a" stroke-width="1.2"/>
+        <line x1="20" y1="90" x2="40" y2="90" stroke="#e5b45a" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <div class="floating-glass g3">
+      <svg viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 10 Q15 40 30 50 Q45 40 45 10 Z" stroke="#e5b45a" stroke-width="1.2" fill="rgba(229,180,90,0.15)"/>
+        <line x1="30" y1="50" x2="30" y2="85" stroke="#e5b45a" stroke-width="1.2"/>
+        <line x1="20" y1="90" x2="40" y2="90" stroke="#e5b45a" stroke-width="1.2"/>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">— Established in North Park —</p>
+      <h1 class="hero-title">Join the Society<em>of curious palates</em></h1>
+      <p class="hero-tagline">Two thoughtfully curated wine clubs. One community of people who believe wine is meant to be shared, slowly, often, and well.</p>
+      <div class="hero-ctas">
+        <a href="#clubs" class="btn btn-gold">Explore Memberships</a>
+        <a href="#perks" class="btn btn-ghost">See Member Perks</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span class="scroll-hint-text">Pour Yourself In</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── MANIFESTO MARQUEE ─── -->
+  <div class="manifesto">
+    <div class="manifesto-track">
+      <span>Wines of Place</span><span class="dot">&#x2766;</span>
+      <span>Members First</span><span class="dot">&#x2766;</span>
+      <span>Single Vineyard</span><span class="dot">&#x2766;</span>
+      <span>From Spain &amp; Beyond</span><span class="dot">&#x2766;</span>
+      <span>Curated Monthly</span><span class="dot">&#x2766;</span>
+      <span>For The Every Day</span><span class="dot">&#x2766;</span>
+      <span>Wines of Place</span><span class="dot">&#x2766;</span>
+      <span>Members First</span><span class="dot">&#x2766;</span>
+      <span>Single Vineyard</span><span class="dot">&#x2766;</span>
+      <span>From Spain &amp; Beyond</span><span class="dot">&#x2766;</span>
+      <span>Curated Monthly</span><span class="dot">&#x2766;</span>
+      <span>For The Every Day</span><span class="dot">&#x2766;</span>
+    </div>
+  </div>
+
+  <!-- ─── INTRO / WHY JOIN ─── -->
+  <section class="intro">
+    <p class="intro-eyebrow">— A Note from Finca —</p>
+    <h2 class="intro-title">A wine club should feel like <em>your</em> club.</h2>
+    <p class="intro-body">Not a pickup with an exchange of money. A standing invitation. A reason to wander in on a Wednesday. A community of people who love a good bottle and the conversations it starts.</p>
+    <div class="intro-divider">
+      <span class="intro-divider-line"></span>
+      <span class="intro-divider-mark">&#x2766;</span>
+      <span class="intro-divider-line"></span>
+    </div>
+  </section>
+
+  <!-- ─── CLUBS — MEMBERSHIP CARDS ─── -->
+  <section class="clubs" id="clubs">
+    <div class="clubs-grid">
+
+      <!-- DAILY DRINKERS -->
+      <div class="club">
+        <span class="club-corner tl"></span>
+        <span class="club-corner tr"></span>
+        <span class="club-corner bl"></span>
+        <span class="club-corner br"></span>
+
+        <div class="club-header">
+          <p class="club-stamp">— Volume I —</p>
+          <h3 class="club-name">Daily Drinkers<em>three wines for the every day</em></h3>
+          <div class="club-flourish">
+            <span class="club-flourish-line"></span>
+            <span class="club-flourish-dot"></span>
+            <span class="club-flourish-line"></span>
+          </div>
+          <div class="club-pricing">
+            <span class="club-price">$75</span>
+            <span class="club-price-period">/ month</span>
+          </div>
+          <p class="club-bottles"><strong>Three</strong> bottles, every month</p>
+        </div>
+
+        <p class="club-pitch">For those who believe wine is as much a grocery as it is a celebration. Incredible character at an approachable price &mdash; the bottles you'll reach for on a Tuesday.</p>
+
+        <div class="club-divider">
+          <span class="club-divider-line"></span>
+          <span class="club-divider-mark">Member Perks</span>
+          <span class="club-divider-line"></span>
+        </div>
+
+        <ul class="club-perks">
+          <li>Bottle-shop pricing on-site &mdash; no restaurant markup</li>
+          <li>Complimentary flights, third Wednesday of every month</li>
+          <li>$15 wine flights every other Wednesday</li>
+          <li>10% off bottles to-go from the bottle shop</li>
+          <li>15% off bottles in the bottle shop on pickup days</li>
+          <li>First access to highly allocated wine offerings</li>
+          <li>First-ticket access to dinner &amp; wine events</li>
+        </ul>
+
+        <a href="https://finca.vinesos.com/user/memberregister/frmMembershipGrp/145/" class="club-cta">Join the Daily Drinkers Club</a>
+      </div>
+
+      <!-- WINES OF PLACE -->
+      <div class="club club--featured">
+        <span class="ribbon">Flagship</span>
+        <span class="club-corner tl"></span>
+        <span class="club-corner tr"></span>
+        <span class="club-corner bl"></span>
+        <span class="club-corner br"></span>
+
+        <div class="club-header">
+          <p class="club-stamp">— Volume II &middot; Flagship —</p>
+          <h3 class="club-name">Wines of Place<em>two single-vineyard bottles</em></h3>
+          <div class="club-flourish">
+            <span class="club-flourish-line"></span>
+            <span class="club-flourish-dot"></span>
+            <span class="club-flourish-line"></span>
+          </div>
+          <div class="club-pricing">
+            <span class="club-price">$80</span>
+            <span class="club-price-period">/ month</span>
+          </div>
+          <p class="club-bottles"><strong>Two</strong> bottles, every month</p>
+        </div>
+
+        <p class="club-pitch">Our flagship. Single-vineyard wines that truly express where they come from &mdash; sourced from Spain and the great wine regions of the world. Built for those who taste a place when they sip.</p>
+
+        <div class="club-divider">
+          <span class="club-divider-line"></span>
+          <span class="club-divider-mark">Member Perks</span>
+          <span class="club-divider-line"></span>
+        </div>
+
+        <ul class="club-perks">
+          <li>Bottle-shop pricing on-site &mdash; no restaurant markup</li>
+          <li>Complimentary flights, third Wednesday of every month</li>
+          <li>$15 wine flights every other Wednesday</li>
+          <li>10% off bottles to-go from the bottle shop</li>
+          <li>15% off bottles in the bottle shop on pickup days</li>
+          <li>First access to highly allocated wine offerings</li>
+          <li>First-ticket access to dinner &amp; wine events</li>
+        </ul>
+
+        <a href="https://finca.vinesos.com/user/memberregister/frmMembershipGrp/144/" class="club-cta">Join The Wines of Place Club</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── PERKS LEDGER ─── -->
+  <section class="perks-section" id="perks">
+    <div class="perks-bg"></div>
+    <div class="perks-inner">
+      <div class="perks-header">
+        <p class="perks-eyebrow">— What's Yours, As A Member —</p>
+        <h2 class="perks-title">More than a <em>monthly pickup.</em></h2>
+        <p class="perks-sub">Every membership comes with the full set. Read it twice &mdash; this is the part most people miss.</p>
+      </div>
+
+      <div class="perks-grid">
+        <div class="perk">
+          <span class="perk-num">I.</span>
+          <div class="perk-body">
+            <p class="perk-title">Permanent Retail Pricing</p>
+            <p class="perk-desc">Bottle-shop prices on every bottle you drink on-site. No restaurant markup &mdash; ever.</p>
+          </div>
+        </div>
+
+        <div class="perk">
+          <span class="perk-num">II.</span>
+          <div class="perk-body">
+            <p class="perk-title">Complimentary Flights</p>
+            <p class="perk-desc">A free wine flight, on the house, the third Wednesday of every single month.</p>
+          </div>
+        </div>
+
+        <div class="perk">
+          <span class="perk-num">III.</span>
+          <div class="perk-body">
+            <p class="perk-title">$15 Members-Only Flights</p>
+            <p class="perk-desc">Every other Wednesday. A weekly excuse to taste something new at a fraction of the price.</p>
+          </div>
+        </div>
+
+        <div class="perk">
+          <span class="perk-num">IV.</span>
+          <div class="perk-body">
+            <p class="perk-title">10% Off To-Go Bottles</p>
+            <p class="perk-desc">Take any bottle from the bottle shop home and save ten percent &mdash; year-round, no limit.</p>
+          </div>
+        </div>
+
+        <div class="perk">
+          <span class="perk-num">V.</span>
+          <div class="perk-body">
+            <p class="perk-title">15% Off On Pickup Days</p>
+            <p class="perk-desc">Stack the savings. On pickup days, every bottle in the shop is fifteen percent off for members.</p>
+          </div>
+        </div>
+
+        <div class="perk">
+          <span class="perk-num">VI.</span>
+          <div class="perk-body">
+            <p class="perk-title">First Access &mdash; Allocated Wines</p>
+            <p class="perk-desc">When something rare arrives, members hear about it first. Before it lists. Before it disappears.</p>
+          </div>
+        </div>
+
+        <div class="perk">
+          <span class="perk-num">VII.</span>
+          <div class="perk-body">
+            <p class="perk-title">First-Ticket Access &mdash; Events</p>
+            <p class="perk-desc">Wine dinners, producer pours, harvest releases. Members get first crack at every seat.</p>
+          </div>
+        </div>
+
+        <div class="perk">
+          <span class="perk-num">VIII.</span>
+          <div class="perk-body">
+            <p class="perk-title">A Standing Invitation</p>
+            <p class="perk-desc">This isn't a transaction. It's your club. Wander in, pull up a stool, ask what we're drinking.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SHOWCASE / QUOTE ─── -->
+  <section class="showcase">
+    <img class="showcase-bg" src="wine-toast.jpg" alt="" loading="lazy">
+    <div class="showcase-inner">
+      <p class="showcase-quote">Wine is meant to be a fabric of the every day &mdash; not just a celebration.</p>
+      <p class="showcase-attr">— The Finca Philosophy —</p>
+    </div>
+  </section>
+
+  <!-- ─── COMPARE ─── -->
+  <section class="compare">
+    <div class="compare-header">
+      <p class="compare-eyebrow">— At a Glance —</p>
+      <h2 class="compare-title">Which one is <em>yours?</em></h2>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Daily Drinkers</th>
+          <th>Wines of Place</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bottles per month</td>
+          <td>Three</td>
+          <td>Two</td>
+        </tr>
+        <tr>
+          <td>Monthly price</td>
+          <td>$75</td>
+          <td>$80</td>
+        </tr>
+        <tr>
+          <td>Style</td>
+          <td>Approachable, every-day</td>
+          <td>Single-vineyard, expressive</td>
+        </tr>
+        <tr>
+          <td>Built for</td>
+          <td>The Tuesday-night pour</td>
+          <td>The slow Sunday tasting</td>
+        </tr>
+        <tr>
+          <td>All member perks included</td>
+          <td><span class="check">&#10003;</span></td>
+          <td><span class="check">&#10003;</span></td>
+        </tr>
+        <tr>
+          <td>First access to allocated wines</td>
+          <td><span class="check">&#10003;</span></td>
+          <td><span class="check">&#10003;</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ─── GIFT CLUB ─── -->
+  <section class="gift">
+    <div class="gift-inner">
+      <div class="gift-content">
+        <p class="gift-eyebrow">— Sealed With Wax —</p>
+        <h2 class="gift-title">Give the gift<br>of a <em>good pour.</em></h2>
+        <p class="gift-desc">Choose the club, choose the duration, and we'll handle the rest. Every time we issue a club pickup, your favorite wine person will receive one too.</p>
+        <a href="https://finca.vinesos.com/giftclub/action/checkout/" class="btn btn-gold">Gift a Club Membership</a>
+      </div>
+
+      <div>
+        <div class="envelope">
+          <div class="envelope-text">
+            <p class="envelope-text-line1">— A Gift From —</p>
+            <p class="envelope-text-line2">Finca</p>
+          </div>
+          <div class="envelope-seal">F</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SIGN-IN PROMPT ─── -->
+  <div class="signin-cta">
+    <p class="signin-cta-text">Already a member of the society?</p>
+    <a href="https://finca.vinesos.com/user/login/">Member Sign-In &rarr;</a>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <p class="footer-mark">Finca Wine</p>
+    <p class="footer-tag">— The Wine Club &middot; North Park, San Diego —</p>
+    <div class="footer-links">
+      <a href="https://finca.wine/">Home</a>
+      <a href="https://finca.wine/bottle-shop/">Bottle Shop</a>
+      <a href="https://finca.wine/reservations/">Reservations</a>
+      <a href="https://finca.wine/events/">Events</a>
+      <a href="https://finca.wine/contact/">Contact</a>
+    </div>
+    <p class="footer-meta">&copy; 2026 Finca Wine &middot; <a href="https://finca.wine/" style="color:var(--gold);text-decoration:none;">finca.wine</a> &middot; Must be 21+ to join</p>
+  </footer>
+
+  <script>
+    (function() {
+      if (sessionStorage.getItem('finca_age_verified')) {
+        document.getElementById('ageGate').classList.add('hidden');
+        document.body.classList.remove('locked');
+        setTimeout(function() { document.getElementById('ageGate').style.display = 'none'; }, 600);
+      }
+    })();
+    function ageOk() {
+      sessionStorage.setItem('finca_age_verified', 'true');
+      document.getElementById('ageGate').classList.add('hidden');
+      document.body.classList.remove('locked');
+      setTimeout(function() { document.getElementById('ageGate').style.display = 'none'; }, 600);
+    }
+    function ageNo() {
+      document.getElementById('ageDeny').style.display = 'block';
+      document.querySelector('.age-buttons').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
