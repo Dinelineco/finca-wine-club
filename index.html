@@ -109,59 +109,87 @@
     }
 
     /* ─────────────────────────────────────────
-       HERO — INTERACTIVE POUR
+       HERO — CHOOSE YOUR GLASS
     ───────────────────────────────────────── */
     .hero {
       position: relative;
       min-height: 100vh; min-height: 100dvh;
-      display: flex; align-items: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
       overflow: hidden;
-      padding: 100px 32px 80px;
+      padding: 120px 24px 80px;
       background:
-        radial-gradient(ellipse at 80% 30%, rgba(90,31,28,0.25) 0%, transparent 55%),
-        radial-gradient(ellipse at 20% 80%, rgba(229,180,90,0.06) 0%, transparent 60%),
-        linear-gradient(180deg, #120a0c 0%, #0a0506 100%);
-      cursor: pointer;
+        radial-gradient(ellipse at 50% 0%, rgba(90,31,28,0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(229,180,90,0.08) 0%, transparent 55%),
+        linear-gradient(180deg, #0a0506 0%, #120a0c 50%, #0a0506 100%);
     }
 
-    /* Ambient light particles (slow drifting dots) */
-    .hero-particles {
+    /* Crosshatch / engraving texture overlay */
+    .hero::before {
+      content: '';
       position: absolute; inset: 0;
-      pointer-events: none; z-index: 1;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(229,180,90,0.02) 0 1px, transparent 1px 24px),
+        repeating-linear-gradient(-45deg, rgba(229,180,90,0.02) 0 1px, transparent 1px 24px);
+      pointer-events: none;
+      z-index: 1;
     }
-    .particle {
+
+    /* Orbiting wine region labels */
+    .orbit-container {
       position: absolute;
-      width: 2px; height: 2px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0;
-      box-shadow: 0 0 8px var(--gold);
-      animation: drift 16s linear infinite;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw; max-width: 1100px;
+      height: 90vh; max-height: 800px;
+      pointer-events: none;
+      z-index: 2;
+      animation: orbitRotate 80s linear infinite;
     }
-    @keyframes drift {
-      0%   { opacity: 0; transform: translateY(20vh) translateX(0); }
-      10%  { opacity: 0.5; }
-      90%  { opacity: 0.5; }
-      100% { opacity: 0; transform: translateY(-100vh) translateX(40px); }
+    @keyframes orbitRotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
     }
+    .region {
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0.5;
+      animation: orbitCounter 80s linear infinite;
+    }
+    /* Counter-rotate so text stays readable */
+    @keyframes orbitCounter {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+    .region::before {
+      content: '✦';
+      margin-right: 10px;
+      opacity: 0.7;
+    }
+    /* Position labels around the orbit */
+    .region.r1 { top: 8%; left: 12%; }
+    .region.r2 { top: 4%; right: 16%; }
+    .region.r3 { top: 50%; right: 2%; transform: translateY(-50%); }
+    .region.r4 { bottom: 8%; right: 14%; }
+    .region.r5 { bottom: 4%; left: 18%; }
+    .region.r6 { top: 50%; left: 2%; transform: translateY(-50%); }
+    .region.r7 { top: 26%; left: 4%; }
+    .region.r8 { top: 28%; right: 6%; }
 
+    @media (max-width: 720px) { .orbit-container { display: none; } }
+
+    /* ─── HERO INNER ─── */
     .hero-inner {
-      position: relative; z-index: 3;
+      position: relative; z-index: 4;
       width: 100%;
-      max-width: 1280px;
+      max-width: 1100px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-    @media (max-width: 980px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-      .hero { padding: 110px 24px 60px; }
-    }
-
-    /* ─── LEFT: COPY ─── */
-    .hero-copy {
+      text-align: center;
       animation: fadeUp 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
     }
     @keyframes fadeUp {
@@ -177,100 +205,213 @@
       letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 24px;
+      margin-bottom: 26px;
     }
-    .hero-eyebrow::before {
+    .hero-eyebrow::before, .hero-eyebrow::after {
       content: '';
       display: block;
-      width: 40px; height: 1px;
+      width: 50px; height: 1px;
       background: linear-gradient(to right, transparent, var(--gold));
     }
-    @media (max-width: 980px) {
-      .hero-eyebrow { justify-content: center; }
-      .hero-eyebrow::after {
-        content: '';
-        display: block;
-        width: 40px; height: 1px;
-        background: linear-gradient(to left, transparent, var(--gold));
-      }
-    }
+    .hero-eyebrow::after { background: linear-gradient(to left, transparent, var(--gold)); }
 
+    /* HEADLINE WITH GOO TYPOGRAPHY */
     .hero-title {
       font-family: 'Gothic', Impact, sans-serif;
-      font-size: clamp(48px, 7.5vw, 92px);
-      line-height: 0.92;
+      font-size: clamp(44px, 7vw, 86px);
+      line-height: 0.95;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--cream);
       margin-bottom: 14px;
+      filter: url(#gooFilter);
     }
-    .hero-title em {
+    .hero-title .gold-word {
+      color: var(--gold);
+      display: inline-block;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { text-shadow: 0 0 20px rgba(229,180,90,0); }
+      50% { text-shadow: 0 0 30px rgba(229,180,90,0.5); }
+    }
+
+    /* Typewriter cycling tagline */
+    .hero-cycle-wrap {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
+      font-size: clamp(20px, 2.6vw, 28px);
+      color: var(--cream);
+      margin-bottom: 8px;
+      line-height: 1.4;
+      height: 1.4em;
+    }
+    .hero-cycle-prefix { opacity: 0.85; }
+    .hero-cycle {
       color: var(--gold);
-      font-weight: 400;
-      letter-spacing: 0;
-      text-transform: none;
-      display: block;
-      font-size: 0.55em;
-      margin-top: 8px;
+      position: relative;
+      display: inline-block;
+      min-width: 0;
+    }
+    .hero-cycle::after {
+      content: '|';
+      color: var(--gold);
+      animation: blink 1s steps(2) infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
     }
 
     .hero-lede {
       font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(18px, 2vw, 22px);
-      color: var(--cream);
-      max-width: 520px;
-      margin-bottom: 32px;
-      line-height: 1.55;
-      opacity: 0.92;
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: var(--soft);
+      max-width: 620px;
+      margin: 18px auto 36px;
+      line-height: 1.6;
     }
-    @media (max-width: 980px) { .hero-lede { margin-left: auto; margin-right: auto; } }
 
-    /* What you get — quick value strip */
-    .hero-stats {
-      display: flex; flex-wrap: wrap;
-      gap: 0;
-      margin-bottom: 36px;
-      max-width: 520px;
-      border-top: 1px solid rgba(229,180,90,0.2);
-      border-bottom: 1px solid rgba(229,180,90,0.2);
+    /* ─── DUAL GLASS CHOOSER ─── */
+    .chooser {
+      display: flex;
+      gap: 60px;
+      justify-content: center;
+      align-items: flex-end;
+      margin: 30px auto 36px;
+      perspective: 1500px;
+      max-width: 720px;
     }
-    @media (max-width: 980px) { .hero-stats { margin-left: auto; margin-right: auto; } }
+    @media (max-width: 600px) {
+      .chooser { gap: 24px; }
+    }
 
-    .hero-stat {
-      flex: 1;
-      min-width: 130px;
-      padding: 18px 14px;
-      border-right: 1px solid rgba(229,180,90,0.15);
+    .glass-pick {
+      position: relative;
+      flex: 1; max-width: 260px;
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .glass-pick:hover { transform: translateY(-8px) rotateX(3deg); }
+    .glass-pick.active { transform: translateY(-12px) scale(1.04); }
+
+    .glass-pick-label {
       text-align: center;
+      margin-bottom: 14px;
     }
-    .hero-stat:last-child { border-right: none; }
-
-    .hero-stat-num {
+    .glass-pick-name {
       font-family: 'Gothic', Impact, sans-serif;
-      font-size: 28px;
-      letter-spacing: 2px;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 6px;
+      font-size: clamp(13px, 1.5vw, 16px);
+      letter-spacing: 3px;
+      color: var(--cream);
+      text-transform: uppercase;
       display: block;
+      transition: color 0.3s;
     }
-    .hero-stat-label {
+    .glass-pick.active .glass-pick-name { color: var(--gold); }
+    .glass-pick-price {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 12px;
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+
+    .glass-svg-wrap {
+      position: relative;
+      width: 100%;
+      filter: drop-shadow(0 12px 30px rgba(0,0,0,0.5));
+      transition: filter 0.4s;
+    }
+    .glass-pick:hover .glass-svg-wrap,
+    .glass-pick.active .glass-svg-wrap {
+      filter: drop-shadow(0 12px 40px rgba(229,180,90,0.4));
+    }
+
+    .glass-svg-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+    .glass-bottle-count {
+      position: absolute;
+      top: 38%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      font-family: 'Gothic', Impact, sans-serif;
+      font-size: 38px;
+      color: var(--gold);
+      letter-spacing: 3px;
+      opacity: 0;
+      transition: opacity 0.6s 0.2s;
+      text-shadow: 0 0 20px rgba(0,0,0,0.8);
+      pointer-events: none;
+    }
+    .glass-pick.active .glass-bottle-count { opacity: 1; }
+
+    .glass-bottle-count em {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--cream);
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--soft);
+      margin-top: 4px;
       opacity: 0.85;
     }
 
-    .hero-ctas {
-      display: flex; gap: 14px; flex-wrap: wrap;
+    .glass-tap-hint {
+      text-align: center;
+      margin-top: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.5;
+      transition: opacity 0.3s;
     }
-    @media (max-width: 980px) { .hero-ctas { justify-content: center; } }
+    .glass-pick:hover .glass-tap-hint,
+    .glass-pick.active .glass-tap-hint { opacity: 1; }
+
+    /* Falling drops between glasses (the bottle pours into selected) */
+    .drop-rail {
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 4px; height: 60px;
+      overflow: visible;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .drop {
+      position: absolute;
+      left: 50%; top: 0;
+      width: 5px; height: 9px;
+      background: linear-gradient(to bottom, var(--gold) 0%, #7a1512 100%);
+      border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: dropFall 1.6s linear infinite;
+      filter: drop-shadow(0 0 4px rgba(229,180,90,0.5));
+    }
+    .drop:nth-child(1) { animation-delay: 0s; }
+    .drop:nth-child(2) { animation-delay: 0.4s; }
+    .drop:nth-child(3) { animation-delay: 0.8s; }
+    .drop:nth-child(4) { animation-delay: 1.2s; }
+    @keyframes dropFall {
+      0%   { opacity: 0; transform: translateX(-50%) translateY(0); }
+      10%  { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(60px); }
+    }
+
+    /* Hero CTAs */
+    .hero-ctas {
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+      margin-top: 8px;
+    }
 
     .btn {
       display: inline-block;
@@ -309,140 +450,6 @@
       color: var(--black);
       transform: translateY(-3px);
       letter-spacing: 4px;
-    }
-
-    /* ─── RIGHT: INTERACTIVE WINE GLASS ─── */
-    .pour-stage {
-      position: relative;
-      height: 620px;
-      max-height: 75vh;
-      display: flex; align-items: flex-end; justify-content: center;
-      animation: fadeUp 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s both;
-    }
-    @media (max-width: 980px) { .pour-stage { height: 500px; max-height: 60vh; } }
-    @media (max-width: 600px) { .pour-stage { height: 420px; } }
-
-    /* Stage glow halo behind the glass */
-    .pour-stage::before {
-      content: '';
-      position: absolute;
-      bottom: 6%; left: 50%;
-      width: 60%; height: 60%;
-      transform: translateX(-50%);
-      background: radial-gradient(ellipse at center, rgba(229,180,90,0.18) 0%, transparent 60%);
-      filter: blur(20px);
-      pointer-events: none;
-    }
-
-    /* The bottle, tilted, pouring */
-    .bottle {
-      position: absolute;
-      top: 4%; left: 18%;
-      width: 130px; height: 360px;
-      transform-origin: 100% 50%;
-      transform: rotate(35deg);
-      pointer-events: none;
-      animation: bottleSway 6s ease-in-out infinite;
-      z-index: 2;
-    }
-    @keyframes bottleSway {
-      0%, 100% { transform: rotate(35deg) translateY(0); }
-      50% { transform: rotate(38deg) translateY(-4px); }
-    }
-    .bottle svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
-
-    /* The pouring stream */
-    .pour-stream {
-      position: absolute;
-      top: 24%; left: 38%;
-      width: 5px;
-      height: 30%;
-      background: linear-gradient(to bottom, rgba(229,180,90,0.95) 0%, rgba(122,21,18,0.92) 100%);
-      transform-origin: top center;
-      transform: rotate(-8deg);
-      pointer-events: none;
-      z-index: 3;
-      filter: drop-shadow(0 0 4px rgba(229,180,90,0.4));
-      animation: streamWobble 0.6s ease-in-out infinite;
-      border-radius: 50% 50% 0 0 / 8px 8px 0 0;
-    }
-    @keyframes streamWobble {
-      0%, 100% { transform: rotate(-8deg) scaleX(1); }
-      50% { transform: rotate(-7deg) scaleX(1.15); }
-    }
-
-    /* THE GLASS */
-    .glass {
-      position: relative;
-      width: 280px; height: 480px;
-      z-index: 4;
-    }
-    @media (max-width: 600px) { .glass { width: 220px; height: 380px; } }
-
-    .glass svg { width: 100%; height: 100%; overflow: visible; }
-
-    /* Tap hint */
-    .tap-hint {
-      position: absolute;
-      bottom: -18px; left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 12px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gold);
-      white-space: nowrap;
-      animation: pulseHint 2.4s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 5;
-    }
-    .tap-hint::before, .tap-hint::after {
-      content: '✦';
-      margin: 0 8px;
-      opacity: 0.6;
-    }
-    @keyframes pulseHint {
-      0%, 100% { opacity: 0.55; }
-      50% { opacity: 1; }
-    }
-
-    /* Splash burst on click */
-    .splash {
-      position: absolute;
-      width: 60px; height: 60px;
-      pointer-events: none;
-      z-index: 6;
-      animation: splashOut 0.7s ease-out forwards;
-    }
-    @keyframes splashOut {
-      from { transform: scale(0.4); opacity: 1; }
-      to { transform: scale(2.2); opacity: 0; }
-    }
-    .splash::before, .splash::after {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: 50%;
-      border: 2px solid rgba(229,180,90,0.7);
-    }
-    .splash::after {
-      border-color: rgba(122,21,18,0.6);
-      transform: scale(0.6);
-    }
-
-    /* Fill percentage tag */
-    .fill-tag {
-      position: absolute;
-      top: 12px; right: 12px;
-      font-family: 'Gothic', Impact, sans-serif;
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: var(--gold);
-      padding: 6px 12px;
-      border: 1px solid rgba(229,180,90,0.4);
-      background: rgba(10,5,6,0.6);
-      z-index: 7;
-      backdrop-filter: blur(6px);
     }
 
     /* Scroll hint */
@@ -1358,166 +1365,140 @@
        HERO
   ───────────────────────────────────────── -->
   <section class="hero" id="hero">
-    <!-- ambient particles -->
-    <div class="hero-particles" id="particles"></div>
+    <!-- SVG defs: goo filter for liquid-looking type, wine gradient for glasses -->
+    <svg width="0" height="0" style="position:absolute;">
+      <defs>
+        <filter id="gooFilter">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.4" result="blur"/>
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"/>
+          <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+        </filter>
+        <linearGradient id="wineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#9a2a26"/>
+          <stop offset="60%" stop-color="#7a1512"/>
+          <stop offset="100%" stop-color="#3a0a08"/>
+        </linearGradient>
+        <radialGradient id="glassShine" cx="30%" cy="20%" r="60%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.22)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+        </radialGradient>
+      </defs>
+    </svg>
+
+    <!-- Orbiting wine region constellation -->
+    <div class="orbit-container">
+      <span class="region r1">Rioja</span>
+      <span class="region r2">Priorat</span>
+      <span class="region r3">Ribera del Duero</span>
+      <span class="region r4">Penedès</span>
+      <span class="region r5">Galicia</span>
+      <span class="region r6">Catalonia</span>
+      <span class="region r7">Bierzo</span>
+      <span class="region r8">Jumilla</span>
+    </div>
 
     <div class="hero-inner">
-      <!-- LEFT: COPY -->
-      <div class="hero-copy">
-        <p class="hero-eyebrow">— The Finca Wine Club —</p>
-        <h1 class="hero-title">Two Bottles, Three Bottles<em>one community of curious palates.</em></h1>
-        <p class="hero-lede">A monthly wine club from the team at Finca in North Park. Single-vineyard pours from Spain &amp; the world, curated by us &mdash; delivered with retail pricing, weekly flights, and first access to everything we open.</p>
+      <p class="hero-eyebrow">— The Finca Wine Club —</p>
 
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="hero-stat-num">2&ndash;3</span>
-            <span class="hero-stat-label">Bottles / Month</span>
+      <h1 class="hero-title">Two Bottles, Three Bottles<br><span class="gold-word">One Society.</span></h1>
+
+      <p class="hero-cycle-wrap">
+        <span class="hero-cycle-prefix">A monthly club for</span>
+        <span class="hero-cycle" id="cycleWord">curious palates</span>
+      </p>
+
+      <p class="hero-lede">A wine club from the team at Finca in North Park. Single-vineyard pours from Spain &amp; the great wine regions of the world, hand-curated each month &mdash; delivered with bottle-shop pricing, weekly flights, and first access to every bottle we open.</p>
+
+      <!-- ── INTERACTIVE: CHOOSE YOUR GLASS ── -->
+      <div class="chooser" id="chooser">
+
+        <!-- DAILY DRINKERS GLASS (3 bottles) -->
+        <div class="glass-pick" id="pickA" data-name="Daily Drinkers" data-bottles="3">
+          <div class="drop-rail" id="railA" style="display:none;">
+            <div class="drop"></div><div class="drop"></div><div class="drop"></div><div class="drop"></div>
           </div>
-          <div class="hero-stat">
-            <span class="hero-stat-num">$75+</span>
-            <span class="hero-stat-label">Per Month</span>
+          <div class="glass-pick-label">
+            <span class="glass-pick-name">Daily Drinkers</span>
+            <span class="glass-pick-price">$75 / month</span>
           </div>
-          <div class="hero-stat">
-            <span class="hero-stat-num">7</span>
-            <span class="hero-stat-label">Member Perks</span>
+          <div class="glass-svg-wrap">
+            <svg viewBox="0 0 220 320" xmlns="http://www.w3.org/2000/svg">
+              <clipPath id="bowlClipA">
+                <path d="M30 25 Q30 145 110 165 Q190 145 190 25 Z"/>
+              </clipPath>
+              <!-- Bowl outline -->
+              <path d="M30 25 Q30 145 110 165 Q190 145 190 25 Z"
+                    fill="rgba(255,255,255,0.03)"
+                    stroke="rgba(229,180,90,0.85)" stroke-width="1.4"/>
+              <!-- Wine liquid (will animate via JS) -->
+              <g clip-path="url(#bowlClipA)">
+                <rect class="wine-liquid" data-glass="A" x="0" y="170" width="220" height="220" fill="url(#wineGrad)"/>
+                <path class="wine-wave" data-glass="A" d="M0 170 Q55 165 110 170 T220 170 L220 195 L0 195 Z" fill="#9a2a26" opacity="0.9"/>
+              </g>
+              <!-- Glass shine -->
+              <path d="M45 50 Q45 130 100 155" stroke="url(#glassShine)" stroke-width="10" fill="none" opacity="0.7"/>
+              <!-- Stem -->
+              <line x1="110" y1="163" x2="110" y2="280" stroke="rgba(229,180,90,0.85)" stroke-width="1.4"/>
+              <!-- Base -->
+              <ellipse cx="110" cy="290" rx="42" ry="6"
+                       fill="rgba(255,255,255,0.05)"
+                       stroke="rgba(229,180,90,0.85)" stroke-width="1.4"/>
+            </svg>
+            <div class="glass-bottle-count">
+              3
+              <em>bottles / mo</em>
+            </div>
           </div>
+          <p class="glass-tap-hint">Tap to Pour</p>
         </div>
 
-        <div class="hero-ctas">
-          <a href="#clubs" class="btn btn-gold">Choose Your Pour</a>
-          <a href="#perks" class="btn btn-ghost">See Member Perks</a>
+        <!-- WINES OF PLACE GLASS (2 bottles) -->
+        <div class="glass-pick" id="pickB" data-name="Wines of Place" data-bottles="2">
+          <div class="drop-rail" id="railB" style="display:none;">
+            <div class="drop"></div><div class="drop"></div><div class="drop"></div><div class="drop"></div>
+          </div>
+          <div class="glass-pick-label">
+            <span class="glass-pick-name">Wines of Place</span>
+            <span class="glass-pick-price">$80 / month</span>
+          </div>
+          <div class="glass-svg-wrap">
+            <svg viewBox="0 0 220 320" xmlns="http://www.w3.org/2000/svg">
+              <clipPath id="bowlClipB">
+                <path d="M30 25 Q30 145 110 165 Q190 145 190 25 Z"/>
+              </clipPath>
+              <path d="M30 25 Q30 145 110 165 Q190 145 190 25 Z"
+                    fill="rgba(255,255,255,0.03)"
+                    stroke="rgba(229,180,90,0.85)" stroke-width="1.4"/>
+              <g clip-path="url(#bowlClipB)">
+                <rect class="wine-liquid" data-glass="B" x="0" y="170" width="220" height="220" fill="url(#wineGrad)"/>
+                <path class="wine-wave" data-glass="B" d="M0 170 Q55 165 110 170 T220 170 L220 195 L0 195 Z" fill="#9a2a26" opacity="0.9"/>
+              </g>
+              <path d="M45 50 Q45 130 100 155" stroke="url(#glassShine)" stroke-width="10" fill="none" opacity="0.7"/>
+              <line x1="110" y1="163" x2="110" y2="280" stroke="rgba(229,180,90,0.85)" stroke-width="1.4"/>
+              <ellipse cx="110" cy="290" rx="42" ry="6"
+                       fill="rgba(255,255,255,0.05)"
+                       stroke="rgba(229,180,90,0.85)" stroke-width="1.4"/>
+            </svg>
+            <div class="glass-bottle-count">
+              2
+              <em>bottles / mo</em>
+            </div>
+          </div>
+          <p class="glass-tap-hint">Tap to Pour</p>
         </div>
       </div>
 
-      <!-- RIGHT: INTERACTIVE POUR -->
-      <div class="pour-stage" id="pourStage">
-        <div class="fill-tag"><span id="fillPct">0</span>% Full</div>
-
-        <!-- THE BOTTLE -->
-        <div class="bottle">
-          <svg viewBox="0 0 130 360" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="bottleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#0a0506"/>
-                <stop offset="40%" stop-color="#2a1418"/>
-                <stop offset="70%" stop-color="#3a1c20"/>
-                <stop offset="100%" stop-color="#0a0506"/>
-              </linearGradient>
-              <linearGradient id="labelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#1a0e0e"/>
-                <stop offset="100%" stop-color="#0a0506"/>
-              </linearGradient>
-            </defs>
-            <!-- neck -->
-            <rect x="56" y="0" width="18" height="80" fill="url(#bottleGrad)" rx="2"/>
-            <!-- shoulder -->
-            <path d="M56 70 Q56 100 35 130 L35 340 Q35 358 65 358 Q95 358 95 340 L95 130 Q74 100 74 70 Z" fill="url(#bottleGrad)"/>
-            <!-- highlight -->
-            <path d="M42 140 L42 320" stroke="rgba(229,180,90,0.15)" stroke-width="2" fill="none"/>
-            <!-- label -->
-            <rect x="40" y="175" width="50" height="115" fill="url(#labelGrad)" stroke="rgba(229,180,90,0.4)" stroke-width="0.5"/>
-            <text x="65" y="220" font-family="Cormorant Garamond, serif" font-style="italic" font-size="11" fill="#e5b45a" text-anchor="middle" letter-spacing="2">FINCA</text>
-            <line x1="48" y1="232" x2="82" y2="232" stroke="#e5b45a" stroke-width="0.4"/>
-            <text x="65" y="252" font-family="Cormorant Garamond, serif" font-size="6" fill="#c9bda0" text-anchor="middle" font-style="italic">WINES OF</text>
-            <text x="65" y="262" font-family="Cormorant Garamond, serif" font-size="6" fill="#c9bda0" text-anchor="middle" font-style="italic">PLACE</text>
-            <text x="65" y="278" font-family="Cormorant Garamond, serif" font-size="5" fill="#a89a88" text-anchor="middle">2026</text>
-          </svg>
-        </div>
-
-        <!-- POURING STREAM -->
-        <div class="pour-stream" id="pourStream"></div>
-
-        <!-- THE GLASS -->
-        <div class="glass">
-          <svg viewBox="0 0 280 480" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <!-- Clip path for the wine — height controlled via JS -->
-              <clipPath id="bowlClip">
-                <path d="M40 50 Q40 200 140 220 Q240 200 240 50 Z"/>
-              </clipPath>
-              <!-- Wine gradient -->
-              <linearGradient id="wineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#9a2a26"/>
-                <stop offset="50%" stop-color="#7a1512"/>
-                <stop offset="100%" stop-color="#4a0a08"/>
-              </linearGradient>
-              <radialGradient id="bowlHighlight" cx="30%" cy="30%" r="60%">
-                <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
-                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-              </radialGradient>
-            </defs>
-
-            <!-- BOWL outline (back) -->
-            <path d="M40 50 Q40 200 140 220 Q240 200 240 50 Z"
-                  fill="rgba(255,255,255,0.04)"
-                  stroke="rgba(229,180,90,0.85)"
-                  stroke-width="1.5"/>
-
-            <!-- WINE LIQUID inside bowl -->
-            <g clip-path="url(#bowlClip)">
-              <!-- Wine rectangle, y starts off-screen, moves up as fill grows -->
-              <rect id="wineRect" x="0" y="220" width="280" height="220" fill="url(#wineGrad)"/>
-              <!-- Wave surface -->
-              <path id="waveSurface"
-                    d="M0 220 Q70 215 140 220 T280 220 L280 240 L0 240 Z"
-                    fill="#9a2a26"
-                    opacity="0.95"/>
-              <!-- Highlight on liquid -->
-              <ellipse id="wineShine" cx="100" cy="225" rx="50" ry="3" fill="rgba(255,180,170,0.35)"/>
-            </g>
-
-            <!-- Glass highlight (front) -->
-            <path d="M55 70 Q55 180 130 210" stroke="url(#bowlHighlight)" stroke-width="14" fill="none" opacity="0.6"/>
-
-            <!-- STEM -->
-            <line x1="140" y1="218" x2="140" y2="410" stroke="rgba(229,180,90,0.85)" stroke-width="1.5"/>
-
-            <!-- BASE -->
-            <ellipse cx="140" cy="420" rx="55" ry="8"
-                     fill="rgba(255,255,255,0.05)"
-                     stroke="rgba(229,180,90,0.85)"
-                     stroke-width="1.5"/>
-            <ellipse cx="140" cy="418" rx="55" ry="3"
-                     fill="rgba(229,180,90,0.15)"/>
-
-            <!-- Bubbles rising in wine -->
-            <g clip-path="url(#bowlClip)">
-              <circle class="bubble b1" cx="100" cy="240" r="2.5" fill="rgba(229,180,90,0.7)"/>
-              <circle class="bubble b2" cx="160" cy="245" r="1.8" fill="rgba(229,180,90,0.6)"/>
-              <circle class="bubble b3" cx="130" cy="250" r="2.2" fill="rgba(229,180,90,0.5)"/>
-              <circle class="bubble b4" cx="180" cy="248" r="1.4" fill="rgba(229,180,90,0.7)"/>
-              <circle class="bubble b5" cx="80" cy="252" r="2" fill="rgba(229,180,90,0.6)"/>
-            </g>
-          </svg>
-        </div>
-
-        <span class="tap-hint">Tap to Pour</span>
+      <div class="hero-ctas">
+        <a href="#clubs" class="btn btn-gold">Compare the Clubs</a>
+        <a href="#perks" class="btn btn-ghost">See Member Perks</a>
       </div>
     </div>
 
     <div class="scroll-hint">
-      <span class="scroll-hint-text">Pour Yourself In</span>
+      <span class="scroll-hint-text">Continue Below</span>
       <div class="scroll-hint-line"></div>
     </div>
   </section>
-
-  <style>
-    /* Bubble animations */
-    @keyframes bubbleRise {
-      0% { transform: translateY(0); opacity: 0; }
-      20% { opacity: 1; }
-      100% { transform: translateY(-100px); opacity: 0; }
-    }
-    .bubble {
-      animation: bubbleRise 4s ease-in infinite;
-      transform-origin: center;
-    }
-    .bubble.b1 { animation-delay: 0s; }
-    .bubble.b2 { animation-delay: 0.8s; }
-    .bubble.b3 { animation-delay: 1.6s; }
-    .bubble.b4 { animation-delay: 2.4s; }
-    .bubble.b5 { animation-delay: 3.2s; }
-  </style>
 
   <!-- ─── MANIFESTO MARQUEE ─── -->
   <div class="manifesto">
@@ -1842,97 +1823,134 @@
     }
 
     // ─────────────────────────────────────────
-    // INTERACTIVE WINE POUR
+    // HERO — CHOOSE YOUR GLASS + WORD CYCLE
     // ─────────────────────────────────────────
     (function() {
-      const hero = document.getElementById('hero');
-      const stage = document.getElementById('pourStage');
-      const wineRect = document.getElementById('wineRect');
-      const waveSurface = document.getElementById('waveSurface');
-      const wineShine = document.getElementById('wineShine');
-      const fillPctEl = document.getElementById('fillPct');
-      const tapHint = document.querySelector('.tap-hint');
-
-      // Wine fills from y=220 (empty, top of bowl visible) down to y=50 (full)
-      // Bowl goes from y=50 (top) to y=220 (bottom). When fill=100%, wine top should be at y=50.
-      const EMPTY_Y = 220;
-      const FULL_Y = 50;
-      const RANGE = EMPTY_Y - FULL_Y; // 170
-
-      let fillTarget = 5;   // 0-100, starts with tiny amount
-      let fillCurrent = 0;
-      let raf = null;
-
-      function applyFill() {
-        // ease toward target
-        fillCurrent += (fillTarget - fillCurrent) * 0.08;
-        if (Math.abs(fillTarget - fillCurrent) < 0.05) fillCurrent = fillTarget;
-
-        const wineTopY = EMPTY_Y - (fillCurrent / 100) * RANGE;
-        wineRect.setAttribute('y', wineTopY);
-        wineShine.setAttribute('cy', wineTopY + 5);
-
-        // Wave surface — gentle sine animation
-        const t = performance.now() / 800;
-        const amp = 4 + (fillTarget > fillCurrent + 1 ? 6 : 0);
-        const y1 = wineTopY + Math.sin(t) * amp;
-        const y2 = wineTopY + Math.sin(t + 1.5) * amp;
-        const y3 = wineTopY + Math.sin(t + 3) * amp;
-        waveSurface.setAttribute('d', `M0 ${y1} Q70 ${y2 - 4} 140 ${y2} T280 ${y3} L280 ${wineTopY + 20} L0 ${wineTopY + 20} Z`);
-
-        fillPctEl.textContent = Math.round(fillCurrent);
-
-        raf = requestAnimationFrame(applyFill);
+      // ── Typewriter cycler ──
+      const cycleEl = document.getElementById('cycleWord');
+      const words = [
+        'curious palates',
+        'the Tuesday pour',
+        'wines of place',
+        'slow Sundays',
+        'Spanish soul',
+        'the bottle shop',
+        'people who notice'
+      ];
+      let wi = 0;
+      function typeWord(text, idx) {
+        return new Promise(resolve => {
+          let i = 0;
+          cycleEl.textContent = '';
+          const tick = () => {
+            cycleEl.textContent = text.slice(0, i);
+            i++;
+            if (i <= text.length) setTimeout(tick, 55 + Math.random() * 50);
+            else resolve();
+          };
+          tick();
+        });
       }
-
-      // Start animation
-      applyFill();
-
-      // Scroll-based fill (fills as user scrolls through hero)
-      function updateScrollFill() {
-        const rect = hero.getBoundingClientRect();
-        const heroHeight = rect.height;
-        const scrolledIntoHero = Math.max(0, -rect.top);
-        const pct = Math.min(80, (scrolledIntoHero / heroHeight) * 100);
-        // Combine scroll fill + manual pours (capped at 100)
-        fillTarget = Math.min(100, Math.max(fillTarget, pct + 5));
+      function eraseWord() {
+        return new Promise(resolve => {
+          let txt = cycleEl.textContent;
+          const tick = () => {
+            txt = txt.slice(0, -1);
+            cycleEl.textContent = txt;
+            if (txt.length > 0) setTimeout(tick, 30);
+            else resolve();
+          };
+          tick();
+        });
       }
-      window.addEventListener('scroll', updateScrollFill, { passive: true });
-
-      // Click-to-pour: each click adds wine
-      function pourBoost(e) {
-        // Don't pour if click is on a link/button
-        if (e.target.closest('a, button, .btn')) return;
-
-        fillTarget = Math.min(100, fillTarget + 12);
-
-        // Splash burst at click location
-        const splash = document.createElement('div');
-        splash.className = 'splash';
-        const rect = stage.getBoundingClientRect();
-        splash.style.left = (e.clientX - rect.left - 30) + 'px';
-        splash.style.top = (e.clientY - rect.top - 30) + 'px';
-        stage.appendChild(splash);
-        setTimeout(() => splash.remove(), 700);
-
-        // Hide tap hint after first pour
-        if (tapHint) {
-          tapHint.style.opacity = '0';
-          tapHint.style.transition = 'opacity 0.6s';
+      async function cycleLoop() {
+        cycleEl.textContent = '';
+        while (true) {
+          await typeWord(words[wi], wi);
+          await new Promise(r => setTimeout(r, 2400));
+          await eraseWord();
+          await new Promise(r => setTimeout(r, 250));
+          wi = (wi + 1) % words.length;
         }
       }
-      hero.addEventListener('click', pourBoost);
+      cycleLoop();
 
-      // ── AMBIENT PARTICLES ──
-      const particlesContainer = document.getElementById('particles');
-      for (let i = 0; i < 18; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDelay = (Math.random() * 16) + 's';
-        p.style.animationDuration = (12 + Math.random() * 10) + 's';
-        particlesContainer.appendChild(p);
+      // ── Choose Your Glass interaction ──
+      // Each glass fills from y=170 (empty) to y=30 (full). Range = 140.
+      const glasses = {
+        A: { rect: document.querySelector('.wine-liquid[data-glass="A"]'),
+             wave: document.querySelector('.wine-wave[data-glass="A"]'),
+             target: 0, current: 0, active: false },
+        B: { rect: document.querySelector('.wine-liquid[data-glass="B"]'),
+             wave: document.querySelector('.wine-wave[data-glass="B"]'),
+             target: 0, current: 0, active: false }
+      };
+      const EMPTY_Y = 170;
+      const FULL_Y = 30;
+      const RANGE = EMPTY_Y - FULL_Y;
+
+      function tickGlasses() {
+        Object.keys(glasses).forEach(k => {
+          const g = glasses[k];
+          g.current += (g.target - g.current) * 0.08;
+          if (Math.abs(g.target - g.current) < 0.05) g.current = g.target;
+          const topY = EMPTY_Y - (g.current / 100) * RANGE;
+          g.rect.setAttribute('y', topY);
+
+          // Wave
+          const t = performance.now() / 700;
+          const amp = 3 + (g.target > g.current + 1 ? 5 : 0);
+          const y1 = topY + Math.sin(t + (k === 'A' ? 0 : 1.5)) * amp;
+          const y2 = topY + Math.sin(t + 1.5) * amp;
+          const y3 = topY + Math.sin(t + 3) * amp;
+          g.wave.setAttribute('d', `M0 ${y1} Q55 ${y2 - 3} 110 ${y2} T220 ${y3} L220 ${topY + 18} L0 ${topY + 18} Z`);
+        });
+        requestAnimationFrame(tickGlasses);
       }
+      tickGlasses();
+
+      // Click handlers
+      function selectGlass(which) {
+        const other = which === 'A' ? 'B' : 'A';
+        glasses[which].target = 92;
+        glasses[other].target = 18;
+
+        document.getElementById('pick' + which).classList.add('active');
+        document.getElementById('pick' + other).classList.remove('active');
+
+        document.getElementById('rail' + which).style.display = 'block';
+        document.getElementById('rail' + other).style.display = 'none';
+      }
+
+      document.getElementById('pickA').addEventListener('click', e => {
+        e.stopPropagation();
+        selectGlass('A');
+      });
+      document.getElementById('pickB').addEventListener('click', e => {
+        e.stopPropagation();
+        selectGlass('B');
+      });
+
+      // Hover gives small preview fill
+      ['A', 'B'].forEach(k => {
+        const el = document.getElementById('pick' + k);
+        el.addEventListener('mouseenter', () => {
+          if (!el.classList.contains('active')) {
+            glasses[k].target = Math.max(glasses[k].target, 35);
+          }
+        });
+        el.addEventListener('mouseleave', () => {
+          if (!el.classList.contains('active')) {
+            glasses[k].target = 0;
+          }
+        });
+      });
+
+      // Auto-fill a tiny bit on load to draw attention
+      setTimeout(() => {
+        glasses.A.target = 25;
+        glasses.B.target = 25;
+      }, 800);
     })();
   </script>
 
